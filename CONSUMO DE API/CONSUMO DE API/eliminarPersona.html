@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Eliminar Paciente</title>
+
+    <!-- Incluir Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Eliminar Paciente </h1>
+        <h5>Para eliminar un paciente registrado, ingrese su respectivo id, tenga en cuenta que el paciente tiene que estar creado</h5>
+        <form id="formulario">
+            <div class="form-group">
+                <label for="id">id</label>
+                <input type="number" class="form-control" id="id" placeholder="Ingrese el id del paciente">
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Escuchar el evento de envío del formulario
+            $("#formulario").submit(function (event) {
+                event.preventDefault(); // Evitar que se envíe el formulario de forma tradicional
+
+                // Obtener los valores de los campos del formulario
+                var id = $("#id").val();
+    
+
+                // Crear el objeto JSON con los datos del formulario
+
+                // Enviar la solicitud DELETE al servidor
+                $.ajax({
+                    url: "http://localhost:8091/cliente/api/persons/delete/"+id,
+                    type: "DELETE",
+                    contentType: "application/json",
+                    success: function (response) {
+                        // La solicitud se ha realizado con éxito
+                        alert("Usuario Eliminado correctamente");
+                        // Aquí puedes realizar alguna acción adicional, como mostrar un mensaje de éxito o redireccionar a otra página
+                    },
+                    error: function (xhr, status, error) {
+                        // Ocurrió un error al enviar la solicitud
+                        alert("Error al enviar la solicitud: " + error);
+                        // Aquí puedes manejar el error de acuerdo a tus necesidades
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>

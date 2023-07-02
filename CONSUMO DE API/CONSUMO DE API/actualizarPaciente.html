@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Actualizar Paciente</title>
+
+    <!-- Incluir Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Modifique los datos Paciente</h1>
+        <h5>Para actualizar los datos del paciente, ingrese el id correspondiente y defina los nuevos datos </h5>
+        <form id="formulario">
+            <div class="form-group">
+                <label for="id">Id</label>
+                <input type="text" class="form-control" id="id" placeholder="Ingrese el id del paciente">
+            </div>
+            <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input type="text" class="form-control" id="nombre" placeholder="Ingrese el nombre del paciente">
+            </div>
+            <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input type="text" class="form-control" id="apellido" placeholder="Ingrese el apellido">
+            </div>
+                <div class="form-group">
+                    <label for="direccion">Direccion</label>
+                    <input type="text" class="form-control" id="direccion" placeholder="Ingrese la Direccion ">
+                </div>
+            <div class="form-group">
+                <label for="idCenter">Id Centro de ubicacion</label>
+                <input type="number" class="form-control" id="idCenter" placeholder="Ingrese el id hospitalario donde queda registrado">
+            </div>  
+            <div class="form-group">
+                <label for="ciudad">Ciudad</label>
+                <input type="text" class="form-control" id="ciudad" placeholder="Ingrese la ciudad">
+            </div> 
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.7.0.js"
+        integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // Escuchar el evento de envío del formulario
+            $("#formulario").submit(function (event) {
+                event.preventDefault(); // Evitar que se envíe el formulario de forma tradicional
+
+                // Obtener los valores de los campos del formulario
+                var id = $("#id").val();
+                var nombre = $("#nombre").val();
+                var apellido = $("#apellido").val();
+                var direccion = $("#direccion").val();
+                var idCenter = $("#idCenter").val();
+                var ciudad = $("#ciudad").val();
+
+                // Crear el objeto JSON con los datos del formulario
+                var datos = {
+                    idPersonn: id,
+                    namePerson: nombre,
+                    lastNamePerson: apellido,
+                    adressPerson: direccion,
+                    idCenterPerson: idCenter,
+                    city: ciudad
+                };
+
+                // Enviar la solicitud UPDATE al servidor
+                $.ajax({
+                    url: "http://localhost:8091/cliente/api/persons/update",
+                    type: "PUT",
+                    dataType: "json",
+                    contentType: "application/json",
+                    data: JSON.stringify(datos),
+                    success: function (response) {
+                        // La solicitud se ha realizado con éxito
+                        alert("Solicitud enviada correctamente");
+                        // Aquí puedes realizar alguna acción adicional, como mostrar un mensaje de éxito o redireccionar a otra página
+                    },
+                    error: function (xhr, status, error) {
+                        // Ocurrió un error al enviar la solicitud
+                        alert("Error al enviar la solicitud: " + error);
+                        // Aquí puedes manejar el error de acuerdo a tus necesidades
+                    }
+                });
+            });
+        });
+    </script>
+
+
+</body>
+
+</html>
